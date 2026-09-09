@@ -1,0 +1,133 @@
+/* ==========================================================================
+   Bootstrap 5 Mock Interview Quiz Application Stylesheet
+   ========================================================================== */
+
+:root {
+  --quiz-accent-glow: rgba(13, 110, 253, 0.15);
+  --quiz-code-bg: #1e1e2e;
+  --quiz-code-color: #cdd6f4;
+}
+
+[data-bs-theme="light"] {
+  --quiz-accent-glow: rgba(13, 110, 253, 0.08);
+  --quiz-code-bg: #f8f9fa;
+  --quiz-code-color: #212529;
+}
+
+/* Base Body Enhancements */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif;
+  letter-spacing: -0.01em;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+/* Option Buttons & Radio Cards */
+.option-btn {
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  user-select: none;
+}
+
+.option-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--quiz-accent-glow);
+  border-color: var(--bs-primary) !important;
+}
+
+.option-btn:focus-visible {
+  outline: 3px solid var(--bs-primary);
+  outline-offset: 2px;
+}
+
+.option-btn.active {
+  background-color: var(--bs-primary-bg-subtle) !important;
+  border-color: var(--bs-primary) !important;
+  color: var(--bs-primary-text-emphasis) !important;
+}
+
+.option-letter-badge {
+  font-weight: 700;
+  font-size: 0.85rem;
+  transition: background-color 0.2s ease;
+}
+
+/* Code Snippet Formatting */
+pre {
+  margin-bottom: 0;
+}
+
+pre code {
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Timer Warning Animation */
+@keyframes timerPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 8px rgba(220, 53, 69, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+  }
+}
+
+.timer-warning-pulse {
+  animation: timerPulse 1.2s infinite ease-in-out;
+}
+
+/* Dashed Utility Borders */
+.border-dashed {
+  border: 2px dashed var(--bs-border-color) !important;
+  border-radius: 0.75rem;
+}
+
+/* Progress Bar Transitions */
+.progress-bar {
+  transition: width 0.4s ease;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+/* General Transition Utility */
+.transition-all {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Results Scorecard Radial Feel */
+.score-circle {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+/* Keyboard Shortcut Hint Tag */
+.kbd-hint {
+  font-size: 0.75rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  background-color: var(--bs-secondary-bg);
+  border: 1px solid var(--bs-border-color);
+  color: var(--bs-secondary-color);
+}

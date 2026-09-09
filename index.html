@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bootstrap 5 Technical Interview Quiz - Client-side interactive preparation app with 65 curated questions, timers, scoring, and explanations.">
+  <title>Bootstrap 5 Mock Interview Quiz App</title>
+  
+  <!-- Inline Anti-FOUC Theme Initializer -->
+  <script>
+    (function() {
+      try {
+        const raw = localStorage.getItem('bs5_mock_quiz_state_v1');
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed && (parsed.theme === 'light' || parsed.theme === 'dark')) {
+            document.documentElement.setAttribute('data-bs-theme', parsed.theme);
+          }
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <!-- Bootstrap 5.3.3 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  
+  <!-- Bootstrap Icons 1.11.3 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <!-- Custom Overrides & Styles -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="bg-body">
+
+  <!-- =========================================================================
+       APPLICATION HEADER & RESPONSIVE NAVBAR
+       ========================================================================= -->
+  <header class="border-bottom sticky-top bg-body">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm" aria-label="Main Navigation">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2 fw-bold text-primary" href="#" data-nav-view="home">
+          <i class="bi bi-bootstrap-fill fs-3"></i>
+          <span>BS5 Interview Master</span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMainCollapse" aria-controls="navbarMainCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarMainCollapse">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" href="#" data-nav-view="home" aria-current="page">
+                <i class="bi bi-house-door me-1"></i> Home
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#questionBankModal">
+                <i class="bi bi-collection me-1"></i> Question Bank (65)
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-1" href="#" data-bs-toggle="modal" data-bs-target="#historyModal">
+                <i class="bi bi-bar-chart-line me-1"></i> History
+                <span id="nav-history-count" class="badge rounded-pill bg-secondary ms-1">0</span>
+              </a>
+            </li>
+          </ul>
+
+          <div class="d-flex align-items-center gap-2">
+            <button id="theme-toggle-btn" class="btn btn-outline-secondary d-flex align-items-center gap-2 px-3 py-1" type="button" aria-label="Toggle light or dark theme">
+              <i class="bi bi-sun-fill text-warning"></i>
+              <span class="theme-label small fw-semibold">Light Mode</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- =========================================================================
+       MAIN APPLICATION VIEW CONTAINER
+       ========================================================================= -->
+  <main class="py-4">
+    <div class="container">
+
+      <!-- =====================================================================
+           VIEW 1: HOME / MODE SELECTION SCREEN
+           ===================================================================== -->
+      <section id="view-home" class="view-section" aria-label="Home Dashboard">
+        <!-- Hero Title -->
+        <div class="row mb-4">
+          <div class="col-lg-8 mx-auto text-center">
+            <span class="badge bg-primary-subtle text-primary border border-primary-subtle mb-2 px-3 py-2 rounded-pill fw-semibold">
+              <i class="bi bi-patch-check-fill me-1"></i> Production Ready Bootstrap 5 Assessment
+            </span>
+            <h1 class="display-5 fw-bold mb-3">Bootstrap 5 Mock Interview Quiz</h1>
+            <p class="lead text-body-secondary mb-4">
+              Master technical interview questions on Bootstrap 5 fundamentals, grid architecture, utilities, components, and responsive design patterns.
+            </p>
+          </div>
+        </div>
+
+        <!-- Mode Selection Cards -->
+        <div class="row g-4 mb-5">
+          <!-- Quick Sprint (10 Qs) -->
+          <div class="col-md-4">
+            <div class="card h-100 border-primary-subtle shadow-sm hover-elevate transition-all">
+              <div class="card-header bg-primary-subtle border-0 py-3">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="badge bg-primary">QUICK MODE</span>
+                  <span class="text-body-secondary small"><i class="bi bi-clock me-1"></i>10:00</span>
+                </div>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <h4 class="card-title fw-bold">Quick Sprint</h4>
+                <p class="card-text text-body-secondary flex-grow-1">
+                  10 randomized questions with a 10-minute timer. Ideal for a fast warm-up before an interview round.
+                </p>
+                <div class="d-flex justify-content-between text-body-secondary small border-top pt-3 mb-3">
+                  <span>Questions: <strong>10</strong></span>
+                  <span>Best Score: <strong id="home-best-quick" class="text-primary">0%</strong></span>
+                </div>
+                <button id="btn-start-quick" class="btn btn-primary w-100 py-2 fw-semibold" type="button">
+                  Start Quick Sprint <i class="bi bi-arrow-right ms-1"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Full Mock Exam (30 Qs) -->
+          <div class="col-md-4">
+            <div class="card h-100 border-warning-subtle shadow-sm hover-elevate transition-all">
+              <div class="card-header bg-warning-subtle border-0 py-3">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="badge bg-warning text-dark">STANDARD MODE</span>
+                  <span class="text-body-secondary small"><i class="bi bi-clock me-1"></i>15:00</span>
+                </div>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <h4 class="card-title fw-bold">Full Mock Exam</h4>
+                <p class="card-text text-body-secondary flex-grow-1">
+                  30 questions covering all 16 categories with a 15-minute countdown. Simulates realistic developer assessments.
+                </p>
+                <div class="d-flex justify-content-between text-body-secondary small border-top pt-3 mb-3">
+                  <span>Questions: <strong>30</strong></span>
+                  <span>Best Score: <strong id="home-best-full" class="text-warning">0%</strong></span>
+                </div>
+                <button id="btn-start-full" class="btn btn-warning w-100 py-2 fw-semibold" type="button">
+                  Start Full Exam <i class="bi bi-arrow-right ms-1"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Complete Bank (65 Qs) -->
+          <div class="col-md-4">
+            <div class="card h-100 border-info-subtle shadow-sm hover-elevate transition-all">
+              <div class="card-header bg-info-subtle border-0 py-3">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="badge bg-info text-dark">MASTERY MODE</span>
+                  <span class="text-body-secondary small"><i class="bi bi-hourglass-split me-1"></i>Untimed</span>
+                </div>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <h4 class="card-title fw-bold">Complete Bank</h4>
+                <p class="card-text text-body-secondary flex-grow-1">
+                  All 65 curated interview questions with no countdown pressure. Practice at your own pace with stop-clock tracking.
+                </p>
+                <div class="d-flex justify-content-between text-body-secondary small border-top pt-3 mb-3">
+                  <span>Questions: <strong>65</strong></span>
+                  <span>Best Score: <strong id="home-best-complete" class="text-info">0%</strong></span>
+                </div>
+                <button id="btn-start-complete" class="btn btn-info w-100 py-2 fw-semibold" type="button">
+                  Start Complete Bank <i class="bi bi-arrow-right ms-1"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Row: Recent Attempt & Topic Overview -->
+        <div class="row g-4">
+          <div class="col-lg-6">
+            <h5 class="fw-bold mb-3 d-flex align-items-center gap-2">
+              <i class="bi bi-clock-history text-primary"></i> Last Quiz Attempt
+            </h5>
+            <div id="home-last-attempt-container">
+              <!-- Dynamically rendered -->
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <h5 class="fw-bold mb-3 d-flex align-items-center gap-2">
+              <i class="bi bi-journal-bookmark-fill text-primary"></i> Covered Topic Domains
+            </h5>
+            <div class="card bg-body-tertiary border-0 shadow-sm p-3">
+              <div class="d-flex flex-wrap gap-2">
+                <span class="badge bg-secondary-subtle text-secondary-emphasis border">BS Fundamentals</span>
+                <span class="badge bg-secondary-subtle text-secondary-emphasis border">BS4 vs BS5</span>
+                <span class="badge bg-secondary-subtle text-secondary-emphasis border">Setup & CDN</span>
+                <span class="badge bg-secondary-subtle text-secondary-emphasis border">Responsive Design</span>
+                <span class="badge bg-secondary-subtle text-secondary-emphasis border">12-Column Grid</span>
+                <span class="badge bg-secondary-subtle text-secondary-emphasis border">Breakpoints (xs..xxl)</span>
+                <span class="badge bg-secondary-subtle text-secondary-emphasis border">Containers</span>
+                <span class="badge bg-secondary-subtle text-secondary-emphasis border">Spacing Utilities</span>
+                <span class="badge bg-secondary-subtle text-secondary-emphasis border">Flexbox Utilities</span>
+                <span class="badge bg-secondary-subtle text-secondary-emphasis border">Utility Classes</span>
+                <span class="badge bg-secondary-subtle text-secondary-emphasis border">Navbar</span>
+                <span class="badge bg-secondary-subtle text-secondary-emphasis border">Buttons</span>
+                <span class="badge bg-secondary-subtle text-secondary-emphasis border">Cards</span>
+                <span class="badge bg-secondary-subtle text-secondary-emphasis border">Alerts & Badges</span>
+                <span class="badge bg-secondary-subtle text-secondary-emphasis border">Modals</span>
+                <span class="badge bg-secondary-subtle text-secondary-emphasis border">Carousel & Pagination</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- =====================================================================
+           VIEW 2: ACTIVE QUIZ SCREEN
+           ===================================================================== -->
+      <section id="view-quiz" class="view-section d-none" aria-label="Active Quiz">
+        <div class="row justify-content-center">
+          <div class="col-lg-9">
+
+            <!-- Quiz Meta Header (Counter, Timer, Badges, Quit) -->
+            <div class="card bg-body-tertiary border-0 shadow-sm mb-4">
+              <div class="card-body py-3">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
+                  <div class="d-flex align-items-center gap-2">
+                    <span id="quiz-question-counter" class="fw-bold text-primary">Question 1 of 10</span>
+                    <span id="quiz-category-badge" class="badge bg-primary-subtle text-primary border border-primary-subtle">Category</span>
+                    <span id="quiz-difficulty-badge" class="badge bg-success-subtle text-success border border-success-subtle">Easy</span>
+                    <button id="quiz-hint-btn" class="btn btn-outline-warning btn-sm d-none" type="button" aria-expanded="false" aria-label="Toggle Question Hint">
+                      <i class="bi bi-lightbulb-fill me-1"></i>Hint
+                    </button>
+                  </div>
+
+                  <div class="d-flex align-items-center gap-3">
+                    <div class="d-flex align-items-center gap-2">
+                      <i class="bi bi-clock-fill text-body-secondary"></i>
+                      <span id="quiz-timer-badge" class="badge bg-body-secondary text-body-emphasis border px-3 py-2 fs-6">
+                        <span id="quiz-timer-display" class="font-monospace">10:00</span>
+                      </span>
+                    </div>
+
+                    <button class="btn btn-outline-danger btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#quitQuizModal" aria-label="Quit Quiz">
+                      <i class="bi bi-x-lg"></i> Quit
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="progress" role="progressbar" aria-label="Quiz Progress" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="height: 10px;">
+                  <div id="quiz-progress-bar" class="progress-bar progress-bar-striped progress-bar-animated bg-primary" style="width: 10%">10%</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Active Question Card -->
+            <div class="card shadow-sm mb-4 border">
+              <div class="card-body p-4">
+                <fieldset>
+                  <legend class="visually-hidden">Question and Options</legend>
+                  
+                  <!-- Question Prompt -->
+                  <h4 id="quiz-question-text" class="card-title fw-bold mb-3 text-body-emphasis">
+                    <!-- Dynamic Question Text -->
+                  </h4>
+
+                  <!-- Hint Box (Conditional) -->
+                  <div id="quiz-hint-container" class="mb-4 d-none">
+                    <div class="alert alert-warning-subtle border border-warning-subtle d-flex align-items-start gap-2 mb-0">
+                      <i class="bi bi-lightbulb-fill text-warning fs-5 flex-shrink-0 mt-1"></i>
+                      <div>
+                        <strong class="d-block mb-1 text-warning-emphasis">Question Hint:</strong>
+                        <span id="quiz-hint-text" class="small text-body"></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 4 Radio Options -->
+                  <div class="mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <label class="form-label fw-semibold text-body-secondary mb-0">Select the best answer:</label>
+                      <span class="text-body-secondary small"><span class="kbd-hint">1-4</span> or <span class="kbd-hint">A-D</span> on keyboard</span>
+                    </div>
+                    <div id="quiz-options-container" class="list-group" role="radiogroup">
+                      <!-- Dynamic Option Buttons -->
+                    </div>
+                  </div>
+
+                  <!-- Action Buttons -->
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="text-body-secondary small">
+                      <i class="bi bi-keyboard me-1"></i>Press <span class="kbd-hint">Enter</span> to submit
+                    </span>
+
+                    <button id="quiz-submit-btn" class="btn btn-primary px-4 py-2 fw-semibold" type="button" disabled>
+                      Submit Answer <i class="bi bi-check2-circle ms-1"></i>
+                    </button>
+                  </div>
+                </fieldset>
+
+                <!-- Post-Submit Feedback Box (Conditional) -->
+                <div id="quiz-feedback-box" class="d-none">
+                  <!-- Dynamic Feedback Rendered Here -->
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+
+      <!-- =====================================================================
+           VIEW 3: RESULTS / SCORECARD SCREEN
+           ===================================================================== -->
+      <section id="view-results" class="view-section d-none" aria-label="Quiz Results">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="card shadow-sm border text-center p-4 mb-4">
+              <div class="card-body">
+                
+                <div id="results-tier-badge" class="badge bg-success px-3 py-2 fs-6 mb-2">
+                  Mastery Level
+                </div>
+                <h2 class="display-6 fw-bold mb-2">Assessment Completed!</h2>
+                <p id="results-feedback-text" class="text-body-secondary mb-4">
+                  Outstanding! You demonstrate production-ready Bootstrap 5 expertise.
+                </p>
+
+                <!-- Score Presentation -->
+                <div class="p-4 rounded-4 bg-body-tertiary border mb-4">
+                  <div class="row align-items-center">
+                    <div class="col-md-5 border-end-md">
+                      <div class="display-4 fw-bold text-primary" id="results-percentage-value">90%</div>
+                      <div class="text-body-secondary fw-semibold">Final Score: <span id="results-score-value">9 / 10</span></div>
+                    </div>
+                    <div class="col-md-7 mt-3 mt-md-0">
+                      <div class="progress mb-2" style="height: 12px;">
+                        <div id="results-progress-bar" class="progress-bar bg-success" style="width: 90%"></div>
+                      </div>
+                      <div class="text-body-secondary small">Time Taken: <strong id="results-time-taken">4m 22s</strong></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Detailed Stat Badges -->
+                <div class="row g-3 mb-4">
+                  <div class="col-4">
+                    <div class="p-3 rounded-3 border bg-success-subtle text-success border-success-subtle">
+                      <i class="bi bi-check-circle-fill fs-3 d-block mb-1"></i>
+                      <div class="fs-4 fw-bold" id="results-correct-count">9</div>
+                      <small class="fw-semibold">Correct</small>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="p-3 rounded-3 border bg-danger-subtle text-danger border-danger-subtle">
+                      <i class="bi bi-x-circle-fill fs-3 d-block mb-1"></i>
+                      <div class="fs-4 fw-bold" id="results-incorrect-count">1</div>
+                      <small class="fw-semibold">Incorrect</small>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="p-3 rounded-3 border bg-secondary-subtle text-secondary border-secondary-subtle">
+                      <i class="bi bi-slash-circle-fill fs-3 d-block mb-1"></i>
+                      <div class="fs-4 fw-bold" id="results-unanswered-count">0</div>
+                      <small class="fw-semibold">Unanswered</small>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Results Action Buttons -->
+                <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+                  <button id="btn-results-review" class="btn btn-primary px-4 py-2 fw-semibold" type="button">
+                    <i class="bi bi-card-checklist me-1"></i> Review All Answers
+                  </button>
+                  <button id="btn-results-retry" class="btn btn-outline-secondary px-4 py-2 fw-semibold" type="button">
+                    <i class="bi bi-arrow-repeat me-1"></i> Try Again
+                  </button>
+                  <button id="btn-results-home" class="btn btn-outline-primary px-4 py-2 fw-semibold" type="button">
+                    <i class="bi bi-house me-1"></i> Back to Home
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- =====================================================================
+           VIEW 4: COMPREHENSIVE REVIEW SCREEN
+           ===================================================================== -->
+      <section id="view-review" class="view-section d-none" aria-label="Answer Review">
+        <div class="row justify-content-center">
+          <div class="col-lg-9">
+
+            <!-- Review Header & Filter Controls -->
+            <div class="card bg-body-tertiary border-0 shadow-sm mb-4">
+              <div class="card-body d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <div>
+                  <h4 class="fw-bold mb-1"><i class="bi bi-card-checklist text-primary me-2"></i>Question Review</h4>
+                  <p class="text-body-secondary small mb-0">Inspect question explanations and correct responses.</p>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                  <div class="btn-group btn-group-sm" role="group" aria-label="Review Filters">
+                    <button id="review-filter-all" class="btn btn-outline-primary active review-filter-btn" type="button">All</button>
+                    <button id="review-filter-correct" class="btn btn-outline-primary review-filter-btn" type="button">Correct Only</button>
+                    <button id="review-filter-incorrect" class="btn btn-outline-primary review-filter-btn" type="button">Incorrect Only</button>
+                  </div>
+                  <button id="btn-review-back-results" class="btn btn-outline-secondary btn-sm" type="button">
+                    <i class="bi bi-trophy me-1"></i> Scorecard
+                  </button>
+                  <button id="btn-review-home" class="btn btn-primary btn-sm" type="button">
+                    <i class="bi bi-house me-1"></i> Home
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Container for Question Cards -->
+            <div id="review-list-container">
+              <!-- Dynamically populated -->
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+
+  <!-- =========================================================================
+       MODALS: QUESTION BANK, HISTORY, QUIT CONFIRMATION
+       ========================================================================= -->
+
+  <!-- Modal 1: Question Bank Explorer -->
+  <div class="modal fade" id="questionBankModal" tabindex="-1" aria-labelledby="questionBankModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold" id="questionBankModalLabel">
+            <i class="bi bi-collection-fill text-primary me-2"></i>Question Bank Repository (65 Questions)
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Filters & Search -->
+          <div class="row g-2 mb-3">
+            <div class="col-md-6">
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                <input type="search" id="qbank-search-input" class="form-control" placeholder="Search questions, keywords, or topics...">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <select id="qbank-category-filter" class="form-select" aria-label="Category Filter">
+                <option value="ALL">All Categories (16)</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <select id="qbank-difficulty-filter" class="form-select" aria-label="Difficulty Filter">
+                <option value="ALL">All Difficulties</option>
+                <option value="Easy">Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span id="qbank-results-count" class="badge bg-secondary">65 of 65 Questions</span>
+            <small class="text-body-secondary">Click any question to view options, answer, and explanation</small>
+          </div>
+
+          <!-- Accordion Question List -->
+          <div id="qbank-list-container">
+            <!-- Dynamic Content -->
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Progress / History -->
+  <div class="modal fade" id="historyModal" tabindex="-1" aria-labelledby="historyModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold" id="historyModalLabel">
+            <i class="bi bi-bar-chart-fill text-primary me-2"></i>Your Quiz Performance History
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div id="history-modal-list">
+            <!-- Dynamic Table -->
+          </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button id="btn-clear-history" type="button" class="btn btn-outline-danger btn-sm">
+            <i class="bi bi-trash3 me-1"></i> Clear All History
+          </button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: Quit Quiz Confirmation -->
+  <div class="modal fade" id="quitQuizModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="quitQuizModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-danger-subtle text-danger">
+          <h5 class="modal-title fw-bold" id="quitQuizModalLabel">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>Quit Active Quiz?
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p class="mb-0">Are you sure you want to exit? Your current in-progress answers and timer will be cancelled and lost.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continue Quiz</button>
+          <button id="btn-confirm-quit" type="button" class="btn btn-danger">Yes, Quit to Home</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- =========================================================================
+       FOOTER
+       ========================================================================= -->
+  <footer class="border-top py-4 mt-auto bg-body-tertiary">
+    <div class="container text-center text-body-secondary small">
+      <div class="d-flex justify-content-center align-items-center gap-2 mb-2">
+        <i class="bi bi-bootstrap-fill text-primary fs-5"></i>
+        <span class="fw-semibold">Bootstrap 5 Mock Interview Quiz App</span>
+      </div>
+      <div>Built with Vanilla HTML5, CSS3, JavaScript ES6+ & Bootstrap 5.3.3. Zero backend dependencies.</div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5.3.3 Bundle JS (with Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+  <!-- Application Main Entry Script -->
+  <script type="module" src="assets/js/app.js"></script>
+</body>
+</html>

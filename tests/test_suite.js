@@ -25,8 +25,8 @@ console.log('====================================================\n');
 
 // 1. QUESTION BANK INTEGRITY
 console.log('[SUITE 1: Question Bank Integrity]');
-assert(QUESTIONS_DATA.length === 65, `Question bank has exactly 65 questions (found: ${QUESTIONS_DATA.length})`);
-assert(Object.keys(CATEGORIES).length === 16, `Category registry has 16 categories (found: ${Object.keys(CATEGORIES).length})`);
+assert(QUESTIONS_DATA.length === 95, `Question bank has exactly 95 questions (found: ${QUESTIONS_DATA.length})`);
+assert(Object.keys(CATEGORIES).length === 24, `Category registry has 24 categories (found: ${Object.keys(CATEGORIES).length})`);
 
 const ids = new Set();
 const texts = new Set();
@@ -59,11 +59,11 @@ QUESTIONS_DATA.forEach((q, idx) => {
   }
 });
 
-assert(ids.size === 65, 'All 65 question IDs are unique');
-assert(texts.size === 65, 'All 65 question texts are unique');
-assert(foundCategories.size === 16, 'All 16 categories are represented in the question bank');
+assert(ids.size === 95, 'All 95 question IDs are unique');
+assert(texts.size === 95, 'All 95 question texts are unique');
+assert(foundCategories.size === 24, 'All 24 categories are represented in the question bank');
 assert(hardQuestionCount >= 10, `Difficult/Hard questions present (found: ${hardQuestionCount})`);
-assert(hintCount >= 20, `At least ~1/3 questions have helpful hints (found: ${hintCount})`);
+assert(hintCount >= 30, `At least ~1/3 questions have helpful hints (found: ${hintCount})`);
 assert(codeSnippetCount === 0, 'All code references removed from question bank');
 assert(invalidOptionsCount === 0, 'Every question has exactly 4 options');
 assert(invalidAnswerIndexCount === 0, 'Every question has a valid 0..3 correctAnswer index');
@@ -100,7 +100,7 @@ const fullSession = engine.startQuiz('FULL');
 assert(fullSession.totalQuestions === 30, 'Full mode initializes exactly 30 questions');
 
 const completeSession = engine.startQuiz('COMPLETE');
-assert(completeSession.totalQuestions === 65, 'Complete mode initializes all 65 questions');
+assert(completeSession.totalQuestions === 95, 'Complete mode initializes all 95 questions');
 
 // Test Submission Guard
 const q1 = engine.getCurrentQuestion();

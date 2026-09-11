@@ -1,7 +1,7 @@
 /**
  * Bootstrap 5 Mock Interview Quiz - Master Question Bank
- * Total Questions: 65
- * Categories: 16
+ * Total Questions: 95
+ * Categories: 24
  */
 
 export const CATEGORIES = {
@@ -16,11 +16,19 @@ export const CATEGORIES = {
   FLEXBOX_UTILS: { id: 'FLEXBOX_UTILS', name: 'Flexbox Utilities' },
   UTILITY_CLASSES: { id: 'UTILITY_CLASSES', name: 'Utility Classes' },
   COMPONENTS_NAVBAR: { id: 'COMPONENTS_NAVBAR', name: 'Navbar & Navigation' },
-  COMPONENTS_BUTTONS: { id: 'COMPONENTS_BUTTONS', name: 'Buttons' },
+  COMPONENTS_BUTTONS: { id: 'COMPONENTS_BUTTONS', name: 'Buttons & Button Groups' },
   COMPONENTS_CARDS: { id: 'COMPONENTS_CARDS', name: 'Cards & Layouts' },
   COMPONENTS_ALERTS_BADGES: { id: 'COMPONENTS_ALERTS_BADGES', name: 'Alerts & Badges' },
   COMPONENTS_MODALS: { id: 'COMPONENTS_MODALS', name: 'Modals' },
-  COMPONENTS_OTHERS: { id: 'COMPONENTS_OTHERS', name: 'Carousel, Dropdown & Pagination' }
+  COMPONENTS_OTHERS: { id: 'COMPONENTS_OTHERS', name: 'Carousel, Dropdown & Pagination' },
+  COMPONENTS_SPINNERS_PROGRESS: { id: 'COMPONENTS_SPINNERS_PROGRESS', name: 'Spinners & Progress Bars' },
+  COMPONENTS_ACCORDION_COLLAPSE: { id: 'COMPONENTS_ACCORDION_COLLAPSE', name: 'Accordion & Collapse' },
+  COMPONENTS_TOASTS_OFFCANVAS: { id: 'COMPONENTS_TOASTS_OFFCANVAS', name: 'Toasts & Offcanvas' },
+  COMPONENTS_LIST_GROUPS: { id: 'COMPONENTS_LIST_GROUPS', name: 'List Groups' },
+  COMPONENTS_TOOLTIPS_POPOVERS: { id: 'COMPONENTS_TOOLTIPS_POPOVERS', name: 'Tooltips, Popovers & Scrollspy' },
+  COMPONENTS_NAVS_TABS: { id: 'COMPONENTS_NAVS_TABS', name: 'Navs & Tabs' },
+  COMPONENTS_FORMS: { id: 'COMPONENTS_FORMS', name: 'Forms & Floating Labels' },
+  COMPONENTS_TABLES: { id: 'COMPONENTS_TABLES', name: 'Tables' }
 };
 
 export const QUESTIONS_DATA = [
@@ -985,5 +993,459 @@ export const QUESTIONS_DATA = [
     ],
     correctAnswer: 0,
     explanation: '.toast-container wraps multiple toasts and uses positioning utilities like position-fixed top-0 end-0 p-3 to stack toasts cleanly in any screen corner.'
+  },
+
+  // ==========================================
+  // 7. W3SCHOOLS BOOTSTRAP 5 COMPONENTS
+  // ==========================================
+  {
+    id: 'Q66',
+    category: 'COMPONENTS_SPINNERS_PROGRESS',
+    difficulty: 'Easy',
+    hint: 'Think of the class that adds a rotating border spinner animation.',
+    question: 'Which Bootstrap 5 class is used to create a basic bordered circular spinning loader?',
+    options: [
+      'spinner-border',
+      'spinner-circle',
+      'loader-rotate',
+      'progress-spinner'
+    ],
+    correctAnswer: 0,
+    explanation: 'Bootstrap 5 uses the .spinner-border class to create a circular bordered loading spinner animation.'
+  },
+  {
+    id: 'Q67',
+    category: 'COMPONENTS_SPINNERS_PROGRESS',
+    difficulty: 'Easy',
+    hint: 'The class name contains "grow" to describe the expanding pulse effect.',
+    question: 'Which Bootstrap 5 class is used to create a growing or pulsing spinner loader?',
+    options: [
+      'spinner-grow',
+      'spinner-pulse',
+      'spinner-expand',
+      'loader-flash'
+    ],
+    correctAnswer: 0,
+    explanation: '.spinner-grow creates a growing/pulsing spinner that continuously scales up and fades out.'
+  },
+  {
+    id: 'Q68',
+    category: 'COMPONENTS_SPINNERS_PROGRESS',
+    difficulty: 'Medium',
+    hint: 'Spinners use border-color: currentColor, so font/text color utilities style them.',
+    question: 'How do you change the color of a Bootstrap 5 spinner?',
+    options: [
+      'Apply contextual text color utility classes such as text-primary, text-success, or text-danger',
+      'Apply background color classes such as bg-primary or bg-success',
+      'Set the CSS spinner-color attribute on the element',
+      'Spinners only support default black and white colors'
+    ],
+    correctAnswer: 0,
+    explanation: 'Bootstrap 5 spinners inherit their color via currentColor (border-color: currentColor), so standard text color utilities (e.g., text-primary, text-warning, text-info) change their color.'
+  },
+  {
+    id: 'Q69',
+    category: 'COMPONENTS_SPINNERS_PROGRESS',
+    difficulty: 'Easy',
+    hint: 'Look for the -sm suffix modifier.',
+    question: 'Which class creates a smaller spinner suitable for placing inside buttons?',
+    options: [
+      'spinner-border-sm or spinner-grow-sm',
+      'spinner-mini',
+      'spinner-btn-xs',
+      'btn-spinner-tiny'
+    ],
+    correctAnswer: 0,
+    explanation: '.spinner-border-sm and .spinner-grow-sm produce smaller spinners (1rem by 1rem) designed to fit nicely inside buttons and inline text.'
+  },
+  {
+    id: 'Q70',
+    category: 'COMPONENTS_SPINNERS_PROGRESS',
+    difficulty: 'Easy',
+    hint: 'Two classes are needed: the outer wrapper and the inner bar.',
+    question: 'How do you create a basic progress bar in Bootstrap 5?',
+    options: [
+      'Wrap a div with class progress-bar inside a container with class progress, specifying width via inline style or utility',
+      'Use the HTML5 native progress tag with bootstrap-progress attribute',
+      'Use a single div with class progress-complete',
+      'Call the JavaScript bootstrap.ProgressBar.render() method'
+    ],
+    correctAnswer: 0,
+    explanation: 'A Bootstrap progress bar requires an outer container with .progress and an inner child with .progress-bar whose width is set (e.g., style="width: 70%" or w-75).'
+  },
+  {
+    id: 'Q71',
+    category: 'COMPONENTS_SPINNERS_PROGRESS',
+    difficulty: 'Easy',
+    hint: 'One class adds stripes and the other animates them.',
+    question: 'Which classes are used to add animated candy stripes to a Bootstrap 5 progress bar?',
+    options: [
+      'progress-bar-striped and progress-bar-animated',
+      'progress-candy and progress-moving',
+      'progress-bar-active and progress-bar-motion',
+      'progress-striped-pulse'
+    ],
+    correctAnswer: 0,
+    explanation: 'Adding .progress-bar-striped creates diagonal CSS gradient stripes, and adding .progress-bar-animated animates the stripes from right to left using CSS3 keyframe animations.'
+  },
+  {
+    id: 'Q72',
+    category: 'COMPONENTS_SPINNERS_PROGRESS',
+    difficulty: 'Medium',
+    hint: 'Multiple inner bar elements share one outer progress container.',
+    question: 'How do you create a stacked or multi-colored progress bar in Bootstrap 5?',
+    options: [
+      'Place multiple div elements with class progress-bar inside a single div with class progress',
+      'Add class progress-stacked to every row element',
+      'Nest multiple div with class progress inside each other',
+      'Bootstrap 5 does not support multiple bars in a single progress component'
+    ],
+    correctAnswer: 0,
+    explanation: 'Placing multiple .progress-bar elements inside a single .progress container creates a stacked progress bar representing multiple data portions.'
+  },
+  {
+    id: 'Q73',
+    category: 'COMPONENTS_ACCORDION_COLLAPSE',
+    difficulty: 'Easy',
+    hint: 'Classes follow the pattern: accordion, accordion-item, accordion-header, accordion-button, accordion-collapse.',
+    question: 'Which component structure represents a standard Bootstrap 5 Accordion?',
+    options: [
+      'An accordion container with accordion-item children containing accordion-header with accordion-button and accordion-collapse',
+      'A collapse-group container containing panel-header and panel-body',
+      'An HTML details and summary list styled with accordion classes',
+      'A table layout with expandable tr rows'
+    ],
+    correctAnswer: 0,
+    explanation: 'Bootstrap 5 accordions use .accordion as the root wrapper, containing .accordion-item elements with .accordion-header, .accordion-button, and .accordion-collapse with .accordion-body.'
+  },
+  {
+    id: 'Q74',
+    category: 'COMPONENTS_ACCORDION_COLLAPSE',
+    difficulty: 'Medium',
+    hint: 'Think about mutual exclusivity among accordion panels.',
+    question: 'In a Bootstrap 5 accordion, what is the purpose of the data-bs-parent attribute?',
+    options: [
+      'It ensures that opening one accordion item automatically closes any other currently open item in that accordion',
+      'It links the accordion to a backend database parent ID',
+      'It forces the accordion to inherit font styles from the body tag',
+      'It prevents screen readers from accessing closed accordion panels'
+    ],
+    correctAnswer: 0,
+    explanation: 'The data-bs-parent attribute points to the ID of the parent .accordion container, ensuring that only one accordion item remains open at a time.'
+  },
+  {
+    id: 'Q75',
+    category: 'COMPONENTS_ACCORDION_COLLAPSE',
+    difficulty: 'Easy',
+    hint: 'The class name contains "flush".',
+    question: 'Which modifier class renders an accordion without outer borders or rounded corners for edge-to-edge layouts?',
+    options: [
+      'accordion-flush',
+      'accordion-borderless',
+      'accordion-flat',
+      'accordion-clean'
+    ],
+    correctAnswer: 0,
+    explanation: 'Adding .accordion-flush to .accordion removes outer borders and rounded corners, creating an edge-to-edge look suitable for embedding inside cards or modals.'
+  },
+  {
+    id: 'Q76',
+    category: 'COMPONENTS_ACCORDION_COLLAPSE',
+    difficulty: 'Easy',
+    hint: 'Bootstrap 5 uses the data-bs- prefix for all JavaScript data attributes.',
+    question: 'Which HTML data attributes are required to create a button that toggles a collapsible element in Bootstrap 5?',
+    options: [
+      'data-bs-toggle="collapse" and data-bs-target="#elementId"',
+      'data-toggle="collapse" and href="#elementId"',
+      'data-action="toggle-collapse" and target="elementId"',
+      'data-bs-collapse="open" and data-bs-id="elementId"'
+    ],
+    correctAnswer: 0,
+    explanation: 'In Bootstrap 5, toggling a collapsible element without custom JS requires data-bs-toggle="collapse" and data-bs-target="#id" on the trigger button.'
+  },
+  {
+    id: 'Q77',
+    category: 'COMPONENTS_TOASTS_OFFCANVAS',
+    difficulty: 'Easy',
+    hint: 'Classes start with .toast, .toast-header, and .toast-body.',
+    question: 'What are the core structural elements of a Bootstrap 5 Toast notification?',
+    options: [
+      'A toast container holding a toast-header and a toast-body',
+      'A notification-box containing alert-title and alert-content',
+      'A popup-card with card-header and card-footer',
+      'A dialog-wrapper with modal-header and modal-body'
+    ],
+    correctAnswer: 0,
+    explanation: 'A Bootstrap toast consists of a .toast wrapper containing an optional .toast-header (with title, timestamp, and .btn-close) and a .toast-body with the message content.'
+  },
+  {
+    id: 'Q78',
+    category: 'COMPONENTS_TOASTS_OFFCANVAS',
+    difficulty: 'Medium',
+    hint: 'Toasts are opt-in and hidden by default unless triggered via JS or class.',
+    question: 'Are Bootstrap 5 Toasts displayed automatically when added to the DOM?',
+    options: [
+      'No, toasts are hidden by default and must be initialized and shown via JavaScript or given the show class',
+      'Yes, toasts immediately show as popups as soon as the HTML is parsed',
+      'Yes, but only if the user is on a mobile device',
+      'Toasts can only be shown using jQuery in Bootstrap 5'
+    ],
+    correctAnswer: 0,
+    explanation: 'Toasts are hidden by default in Bootstrap 5. They must be initialized via JS (e.g. bootstrap.Toast.getOrCreateInstance(el).show()) or have the .show class added manually.'
+  },
+  {
+    id: 'Q79',
+    category: 'COMPONENTS_TOASTS_OFFCANVAS',
+    difficulty: 'Medium',
+    hint: 'Look for the autohide configuration attribute.',
+    question: 'How do you prevent a Bootstrap 5 Toast from automatically hiding after a few seconds?',
+    options: [
+      'Set data-bs-autohide="false" on the toast element or pass autohide: false in JS options',
+      'Add class toast-persistent to the body',
+      'Set data-bs-delay="infinite" on the toast',
+      'Toasts cannot stay visible and always dismiss after 5 seconds'
+    ],
+    correctAnswer: 0,
+    explanation: 'By default, toasts auto-hide after 5000ms (5s). Adding data-bs-autohide="false" or passing { autohide: false } keeps the toast visible until explicitly dismissed.'
+  },
+  {
+    id: 'Q80',
+    category: 'COMPONENTS_TOASTS_OFFCANVAS',
+    difficulty: 'Easy',
+    hint: 'Think of slide-in sidebars and drawer menus.',
+    question: 'What is the purpose of the Bootstrap 5 Offcanvas component?',
+    options: [
+      'To create hidden sidebars that slide into the viewport from the left, right, top, or bottom for navigation or shopping carts',
+      'To draw vector graphics directly on an HTML5 canvas element',
+      'To compress image assets on the client GPU',
+      'To create floating 3D tooltips that follow the mouse cursor'
+    ],
+    correctAnswer: 0,
+    explanation: 'The Offcanvas component (.offcanvas) creates hidden drawer sidebars that slide into the viewport from any edge (start, end, top, bottom) when triggered.'
+  },
+  {
+    id: 'Q81',
+    category: 'COMPONENTS_TOASTS_OFFCANVAS',
+    difficulty: 'Easy',
+    hint: 'Bootstrap 5 uses start and end instead of left and right.',
+    question: 'Which class positions an Offcanvas sidebar to slide in from the right edge of the screen in LTR languages?',
+    options: [
+      'offcanvas-end',
+      'offcanvas-right',
+      'offcanvas-east',
+      'offcanvas-side-r'
+    ],
+    correctAnswer: 0,
+    explanation: 'Bootstrap 5 uses RTL-friendly directional naming, so .offcanvas-end slides the sidebar in from the right in LTR (and left in RTL).'
+  },
+  {
+    id: 'Q82',
+    category: 'COMPONENTS_LIST_GROUPS',
+    difficulty: 'Easy',
+    hint: 'The class ends with -action.',
+    question: 'Which class enables hover, focus, and active styling on Bootstrap 5 list group items when using anchor or button tags?',
+    options: [
+      'list-group-item-action',
+      'list-group-item-hover',
+      'list-group-item-clickable',
+      'list-group-item-active'
+    ],
+    correctAnswer: 0,
+    explanation: 'Adding .list-group-item-action to <a> or <button> elements inside a .list-group adds hover, focus, and disabled interaction styling.'
+  },
+  {
+    id: 'Q83',
+    category: 'COMPONENTS_LIST_GROUPS',
+    difficulty: 'Easy',
+    hint: 'The class name contains "numbered".',
+    question: 'Which class creates numbered list group items automatically without using an HTML ol tag?',
+    options: [
+      'list-group-numbered',
+      'list-group-numeric',
+      'list-group-ordered',
+      'list-group-counters'
+    ],
+    correctAnswer: 0,
+    explanation: '.list-group-numbered uses CSS counters to automatically generate numbers before each .list-group-item without needing an <ol> list.'
+  },
+  {
+    id: 'Q84',
+    category: 'COMPONENTS_LIST_GROUPS',
+    difficulty: 'Easy',
+    hint: 'Like flush accordions, this class uses -flush.',
+    question: 'Which modifier class removes the outer borders and rounded corners of a list group, often used inside cards?',
+    options: [
+      'list-group-flush',
+      'list-group-borderless',
+      'list-group-plain',
+      'list-group-flat'
+    ],
+    correctAnswer: 0,
+    explanation: '.list-group-flush removes outer borders and rounded corners, creating seamless edge-to-edge list groups inside card components.'
+  },
+  {
+    id: 'Q85',
+    category: 'COMPONENTS_LIST_GROUPS',
+    difficulty: 'Medium',
+    hint: 'The class name contains "horizontal".',
+    question: 'Which class displays list group items horizontally side-by-side instead of vertically stacked?',
+    options: [
+      'list-group-horizontal or list-group-horizontal-{breakpoint}',
+      'list-group-row',
+      'list-group-inline',
+      'list-group-flex'
+    ],
+    correctAnswer: 0,
+    explanation: '.list-group-horizontal (or responsive variants like .list-group-horizontal-md) arranges list group items in a horizontal row.'
+  },
+  {
+    id: 'Q86',
+    category: 'COMPONENTS_TOOLTIPS_POPOVERS',
+    difficulty: 'Medium',
+    hint: 'Popper.js positioning calculations are heavy, so opt-in initialization preserves performance.',
+    question: 'Why do Bootstrap 5 Tooltips require explicit JavaScript initialization to function?',
+    options: [
+      'Tooltips are opt-in for performance reasons, so developers must initialize them using bootstrap.Tooltip on desired elements',
+      'Tooltips require an external paid API license',
+      'Tooltips cannot be rendered with CSS',
+      'Tooltips are deprecated in Bootstrap 5'
+    ],
+    correctAnswer: 0,
+    explanation: 'Bootstrap tooltips rely on Popper.js for positioning. For performance reasons, they are opt-in and must be initialized with JavaScript (e.g. new bootstrap.Tooltip(el)).'
+  },
+  {
+    id: 'Q87',
+    category: 'COMPONENTS_TOOLTIPS_POPOVERS',
+    difficulty: 'Medium',
+    hint: 'The focus trigger handles dismissing on click outside.',
+    question: 'How do you configure a Bootstrap 5 Popover to be dismissed when the user clicks anywhere outside the trigger element?',
+    options: [
+      'Set data-bs-trigger="focus" on an anchor or button element with tabindex',
+      'Add class popover-dismiss-auto to the body tag',
+      'Set data-bs-dismiss="anywhere" on the popover container',
+      'Popovers always dismiss on any mouse click by default'
+    ],
+    correctAnswer: 0,
+    explanation: 'Setting data-bs-trigger="focus" on a focusable trigger element dismisses the popover on the user\'s next click elsewhere.'
+  },
+  {
+    id: 'Q88',
+    category: 'COMPONENTS_TOOLTIPS_POPOVERS',
+    difficulty: 'Hard',
+    hint: 'Scrollspy calculates offsets relative to a container with relative positioning and scrolling overflow.',
+    question: 'What CSS requirements must be met on the scrollable container element when implementing Bootstrap 5 Scrollspy?',
+    options: [
+      'The scrollable element must have position: relative, an explicit height or max-height, and overflow-y: scroll or auto',
+      'The scrollable element must have position: fixed and display: flex',
+      'The scrollable element must be an HTML table with fixed layout',
+      'No CSS rules are required on the container'
+    ],
+    correctAnswer: 0,
+    explanation: 'When using Scrollspy on an element other than <body>, it must have position: relative, a defined height/max-height, and overflow-y: scroll (or auto) for scroll offset tracking.'
+  },
+  {
+    id: 'Q89',
+    category: 'COMPONENTS_NAVS_TABS',
+    difficulty: 'Easy',
+    hint: 'Think of classic folder tab shapes versus rounded pills.',
+    question: 'What is the visual difference between the .nav-tabs and .nav-pills classes in Bootstrap 5?',
+    options: [
+      'nav-tabs creates bordered folder-style tabs, while nav-pills creates rounded pill-shaped button links',
+      'nav-tabs is for text only, while nav-pills is for images only',
+      'nav-pills is vertical only, while nav-tabs is horizontal only',
+      'nav-tabs requires JavaScript, while nav-pills is pure HTML'
+    ],
+    correctAnswer: 0,
+    explanation: '.nav-tabs renders border-framed tabbed navigation (like folder tabs), whereas .nav-pills renders rounded button-like links.'
+  },
+  {
+    id: 'Q90',
+    category: 'COMPONENTS_NAVS_TABS',
+    difficulty: 'Medium',
+    hint: 'Justified navs distribute width equally among all items.',
+    question: 'What does the .nav-justified class do to navigation items inside a .nav component?',
+    options: [
+      'Forces all nav items to share equal width across the entire container width (width: 100%)',
+      'Aligns nav items to the right side of the navbar',
+      'Justifies text paragraphs inside dropdown menus',
+      'Makes all navigation links bold and uppercase'
+    ],
+    correctAnswer: 0,
+    explanation: '.nav-justified forces all child .nav-item elements to occupy identical equal widths, filling the full horizontal width of their parent container.'
+  },
+  {
+    id: 'Q91',
+    category: 'COMPONENTS_FORMS',
+    difficulty: 'Easy',
+    hint: 'The standard input styling class in Bootstrap.',
+    question: 'Which Bootstrap 5 class is used to style standard textual inputs, textareas, and file inputs?',
+    options: [
+      'form-control',
+      'form-input',
+      'input-control',
+      'form-field'
+    ],
+    correctAnswer: 0,
+    explanation: '.form-control is the primary styling class for textual <input>, <textarea>, and file inputs in Bootstrap 5.'
+  },
+  {
+    id: 'Q92',
+    category: 'COMPONENTS_FORMS',
+    difficulty: 'Easy',
+    hint: 'A toggle switch is a styled checkbox wrapped in .form-check with an extra class.',
+    question: 'How do you create a modern toggle switch in Bootstrap 5 forms?',
+    options: [
+      'Add the form-switch class to a form-check wrapper around a checkbox input',
+      'Use the custom HTML tag <bs-toggle-switch>',
+      'Add type="switch" to an input tag',
+      'Apply class btn-switch to a regular button'
+    ],
+    correctAnswer: 0,
+    explanation: 'A toggle switch is created by adding .form-switch to the .form-check wrapper around a standard <input type="checkbox" class="form-check-input">.'
+  },
+  {
+    id: 'Q93',
+    category: 'COMPONENTS_FORMS',
+    difficulty: 'Medium',
+    hint: 'Floating labels animate and shrink upward when active.',
+    question: 'What is the purpose of the .form-floating class in Bootstrap 5?',
+    options: [
+      'It creates floating labels that sit inside input fields and smoothly scale up when the field receives focus or has content',
+      'It causes form fields to float to the left side of the page using CSS float',
+      'It animates form inputs with a floating levitation shadow effect',
+      'It positions the form in a fixed floating window on the screen'
+    ],
+    correctAnswer: 0,
+    explanation: '.form-floating wraps an <input> and <label> (in that order), rendering the label inside the field initially and animating it to float above when focused or filled.'
+  },
+  {
+    id: 'Q94',
+    category: 'COMPONENTS_FORMS',
+    difficulty: 'Easy',
+    hint: 'The wrapper is .input-group and the text wrapper is .input-group-text.',
+    question: 'Which classes are used to attach icons, text badges, or buttons before or after an input field?',
+    options: [
+      'input-group with input-group-text elements',
+      'form-addon with addon-item',
+      'input-prefix with input-suffix',
+      'form-group with group-label'
+    ],
+    correctAnswer: 0,
+    explanation: '.input-group acts as a flex container, allowing .input-group-text spans, buttons, or dropdowns to be seamlessly attached alongside .form-control inputs.'
+  },
+  {
+    id: 'Q95',
+    category: 'COMPONENTS_TABLES',
+    difficulty: 'Easy',
+    hint: 'Combine table, table-striped, table-hover, and table-responsive.',
+    question: 'Which Bootstrap 5 classes create a striped, hoverable, and horizontally scrollable responsive table?',
+    options: [
+      'table table-striped table-hover inside a table-responsive wrapper',
+      'table-zebra table-hoverable with grid-scroll',
+      'table-bordered table-motion with overflow-x',
+      'responsive-grid-table with row-hover'
+    ],
+    correctAnswer: 0,
+    explanation: '.table-striped adds zebra-striping, .table-hover highlights rows on mouseover, and wrapping the table in a .table-responsive container enables horizontal scrolling on narrow screens.'
   }
 ];

@@ -22,9 +22,9 @@ export const QUIZ_MODES = {
   COMPLETE: {
     id: 'COMPLETE',
     name: 'Complete Question Bank',
-    count: QUESTIONS_DATA.length, // 65 questions
+    count: QUESTIONS_DATA.length, // 95 questions
     timeLimitSec: 0, // Untimed
-    description: 'All 65 curated questions with an untimed stop-clock for comprehensive mastery.'
+    description: 'All 95 curated questions with an untimed stop-clock for comprehensive mastery.'
   }
 };
 
